@@ -11,6 +11,9 @@ const Navbar = (): JSX.Element => {
       <li>
         <Link href="/tasks-axios">Tasks Axios</Link>
       </li>
+      <li>
+        <Link href="/tasks">Tasks</Link>
+      </li>
     </ul>
     </main>
   )
