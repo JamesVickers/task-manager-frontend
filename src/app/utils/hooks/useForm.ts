@@ -5,7 +5,7 @@ const useForm = (
   initial = {},
 ): {
   inputs: SilentAny;
-  handleChange: (name: string, value: string) => void;
+  handleChange: (name: string, value: number | string) => void;
   resetForm: () => void;
 } => {
   const [inputs, setInputs] = useState(initial);
@@ -17,7 +17,7 @@ const useForm = (
     // cannot useEffect on initial, as that would cause an infinite loop
   }, [initialValues]);
 
-  const handleChange = (name: string, value: string) => {
+  const handleChange = (name: string, value: number | string) => {
     setInputs({
       ...inputs,
       [name]: value,

@@ -1,14 +1,15 @@
 'use client'
 
 import React from 'react';
-import { useQuery } from 'react-query';
+import { useQuery, useMutation } from 'react-query';
 import axios, { AxiosError } from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { ITask } from '../types/interfaces';
 import useForm from '../utils/hooks/useForm';
+import { Priority } from '../types/types';
 
 const Tasks = (): JSX.Element => {
-
+    // Query logic
     const getAllTasks = () => axios.get('http://localhost:8888/tasks/get/all');
 
     const {
@@ -23,15 +24,27 @@ const Tasks = (): JSX.Element => {
         error: AxiosError | null
     } = useQuery('getAllTasks', getAllTasks);
 
+    const postTask = (newTask: ITask) => axios.post('http://localhost:8888/tasks/create/task', newTask);
+
+    const { mutate: createTask } = useMutation(postTask);
+
+    // Form state
     const { inputs, handleChange, resetForm } = useForm({
         assignee: '',
         description: '',
-        priority: '',
+        priority: null,
     });
 
+    // Handlers
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        handleChange(name, value);
+        let parsedValue = name === 'priority' ? parseInt(value) : value;
+        handleChange(name, parsedValue);
+    };
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>, newTask: ITask) => { // Todo: configure this to accept interface ITask
+        e.preventDefault();
+        createTask(newTask);
     };
 
     return (
@@ -73,7 +86,7 @@ const Tasks = (): JSX.Element => {
                         onChange={(e) => handleInputChange(e)}
                     />
                 </label>
-                <input type='submit' value='Submit' />
+                <input type='submit' value='Submit' onClick={(e) => handleSubmit(e, inputs)} />
                 <button type='button' onClick={resetForm}>Reset</button>
             </form>
             {isError && <h2>{error?.message}</h2>}
