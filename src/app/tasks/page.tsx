@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react';
-import { useQuery, useMutation } from 'react-query';
+import { useQuery, useQueryClient, useMutation } from 'react-query';
 import axios, { AxiosError } from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { ITask } from '../types/interfaces';
@@ -26,7 +26,13 @@ const Tasks = (): JSX.Element => {
 
     const postTask = (newTask: ITask) => axios.post('http://localhost:8888/tasks/create/task', newTask);
 
-    const { mutate: createTask } = useMutation(postTask);
+    const queryClient = useQueryClient();
+
+    const { mutate: createTask } = useMutation(postTask, {
+        onSuccess: () => {
+            queryClient.invalidateQueries('getAllTasks'); // Refetch getAllTasks on createTask success to refresh tasks list automatically
+        }
+    });
 
     // Form state
     const { inputs, handleChange, resetForm } = useForm({
@@ -45,6 +51,7 @@ const Tasks = (): JSX.Element => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>, newTask: ITask) => { // Todo: configure this to accept interface ITask
         e.preventDefault();
         createTask(newTask);
+        resetForm();
     };
 
     return (
