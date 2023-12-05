@@ -2,6 +2,7 @@
 
 import { Inter } from 'next/font/google'
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import Navbar from './components/navbar'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -19,7 +20,8 @@ const RootLayout = ({
         <body className={inter.className}>
           <Navbar />
           {children}
-      </body>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </body>
       </html>
     </QueryClientProvider>
   )
