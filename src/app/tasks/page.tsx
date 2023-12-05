@@ -32,7 +32,7 @@ const Tasks = (): JSX.Element => {
     const { inputs, handleChange, resetForm } = useForm({
         assignee: '',
         description: '',
-        priority: null,
+        priority: '',
     });
 
     // Handlers
