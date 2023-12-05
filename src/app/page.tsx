@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-export default function Home() {
+const Home = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState(true);
   const [tasks, setTasks] = useState([]);
 
@@ -31,7 +31,6 @@ export default function Home() {
             const { _id: id, assignee, description, priority } = task;
             return (
               <>
-
                 <ul>
                   <li>{id}</li>
                   <li>{assignee}</li>
@@ -47,3 +46,5 @@ export default function Home() {
     </main>
   )
 }
+
+export default Home;
