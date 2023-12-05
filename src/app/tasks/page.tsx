@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useQuery } from 'react-query';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { ITask } from '../types/interfaces';
 import useForm from '../utils/hooks/useForm';
@@ -11,7 +11,17 @@ const Tasks = (): JSX.Element => {
 
     const getAllTasks = () => axios.get('http://localhost:8888/tasks/get/all');
 
-    const { isLoading, data } = useQuery('getAllTasks', getAllTasks);
+    const {
+        isLoading,
+        data,
+        isError,
+        error
+    }: {
+        isLoading: boolean,
+        data: any,
+        isError: boolean,
+        error: AxiosError | null
+    } = useQuery('getAllTasks', getAllTasks);
 
     const { inputs, handleChange, resetForm } = useForm({
         assignee: '',
@@ -66,11 +76,11 @@ const Tasks = (): JSX.Element => {
                 <input type='submit' value='Submit' />
                 <button type='button' onClick={resetForm}>Reset</button>
             </form>
-            {isLoading ? (
-                <h2>Loading...</h2>
-            ) : (
+            {isError && <h2>{error?.message}</h2>}
+            {isLoading && <h2>Loading...</h2>}
+            {!isError && !isLoading && (
                 <div>
-                    <h2>Task count: {data?.data.tasks.length}</h2>
+                    {data?.data.tasks && <h2>Task count: {data?.data.tasks.length}</h2>}
                     {data?.data.tasks && data.data.tasks.map((task: ITask) => {
                         const { _id: id, assignee, description, priority } = task;
                         const uniqueKey: string = uuidv4();
@@ -86,8 +96,7 @@ const Tasks = (): JSX.Element => {
                         )
                     })}
                 </div>
-            )
-            }
+            )}
         </main>
     )
 }

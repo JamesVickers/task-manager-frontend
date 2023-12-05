@@ -1,13 +1,14 @@
 'use client'
 
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { ITask } from '../types/interfaces';
 
 const TasksAxios = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState(true);
   const [tasks, setTasks] = useState<ITask[]>();
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     axios.get('http://localhost:8888/tasks/get/all')
@@ -16,14 +17,18 @@ const TasksAxios = (): JSX.Element => {
         setTasks(axiosTasks);
         setIsLoading(false);
       })
+      .catch((err: AxiosError) => {
+        const { message: errorMessage } = err
+        setErrorMessage(errorMessage);
+        setIsLoading(false);
+      })
   }, [])
 
   return (
     <main>
-
-      {isLoading ? (
-        <h2>Loading...</h2>
-      ) : (
+      {errorMessage && <h2>{errorMessage}</h2>}
+      {isLoading && <h2>Loading...</h2>}
+      {!errorMessage && !isLoading && (
         <div>
           {tasks && <h2>Task count: {tasks.length}</h2>}
           {tasks?.length && tasks.map((task: ITask) => {
@@ -41,8 +46,7 @@ const TasksAxios = (): JSX.Element => {
             )
           })}
         </div>
-      )
-      }
+      )}
     </main>
   )
 }
