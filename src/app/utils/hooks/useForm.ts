@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { SilentAny } from "../../types/types";
+import { useEffect, useState } from 'react';
+import { SilentAny } from '../../types/types';
 
 const useForm = (
   initial = {},
@@ -10,7 +10,7 @@ const useForm = (
 } => {
   const [inputs, setInputs] = useState(initial);
   // used to check when initial values goes from nothing to something
-  const initialValues = Object.values(initial).join("");
+  const initialValues = Object.values(initial).join('');
 
   useEffect(() => {
     setInputs(initial);

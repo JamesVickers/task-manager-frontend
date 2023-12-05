@@ -14,9 +14,9 @@ const Tasks = (): JSX.Element => {
     const { isLoading, data } = useQuery('getAllTasks', getAllTasks);
 
     const { inputs, handleChange, resetForm } = useForm({
-        assignee: "",
-        description: "",
-        priority: "",
+        assignee: '',
+        description: '',
+        priority: '',
     });
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,12 +29,12 @@ const Tasks = (): JSX.Element => {
             <form>
                 <label>
                     Assignee:
-                    <input 
-                        type="text"
-                        id="assignee"
-                        name="assignee"
-                        placeholder={"Add an assignee"}
-                        alt={"form input assignee"}
+                    <input
+                        type='text'
+                        id='assignee'
+                        name='assignee'
+                        placeholder={'Add an assignee'}
+                        alt={'form input assignee'}
                         value={inputs.assignee}
                         onChange={(e) => handleInputChange(e)}
                     />
@@ -42,11 +42,11 @@ const Tasks = (): JSX.Element => {
                 <label>
                     Description:
                     <input
-                        type="text"
-                        id="description"
-                        name="description"
-                        placeholder={"Add an description"}
-                        alt={"form input description"}
+                        type='text'
+                        id='description'
+                        name='description'
+                        placeholder={'Add an description'}
+                        alt={'form input description'}
                         value={inputs.description}
                         onChange={(e) => handleInputChange(e)}
                     />
@@ -54,17 +54,17 @@ const Tasks = (): JSX.Element => {
                 <label>
                     Priority:
                     <input
-                        type="number"
-                        id="priority"
-                        name="priority"
-                        placeholder={"Add an priority"}
-                        alt={"form input priority"}
+                        type='number'
+                        id='priority'
+                        name='priority'
+                        placeholder={'Add an priority'}
+                        alt={'form input priority'}
                         value={inputs.priority}
                         onChange={(e) => handleInputChange(e)}
                     />
                 </label>
-                <input type="submit" value="Submit" />
-                <button type="button" onClick={resetForm}>Reset</button>
+                <input type='submit' value='Submit' />
+                <button type='button' onClick={resetForm}>Reset</button>
             </form>
             {isLoading ? (
                 <h2>Loading...</h2>

@@ -15,7 +15,7 @@ const RootLayout = ({
 }): JSX.Element => {
   return (
     <QueryClientProvider client={queryClient}>
-      <html lang="en">
+      <html lang='en'>
         <body className={inter.className}>
           <Navbar />
           {children}

@@ -6,13 +6,13 @@ const Navbar = (): JSX.Element => {
     <main>
       <ul>
       <li>
-        <Link href="/">Home</Link>
+        <Link href='/'>Home</Link>
       </li>
       <li>
-        <Link href="/tasks-axios">Tasks Axios</Link>
+        <Link href='/tasks-axios'>Tasks Axios</Link>
       </li>
       <li>
-        <Link href="/tasks">Tasks</Link>
+        <Link href='/tasks'>Tasks</Link>
       </li>
     </ul>
     </main>
