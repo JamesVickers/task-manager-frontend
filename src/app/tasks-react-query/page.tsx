@@ -9,7 +9,7 @@ import { INewTask, ITask } from '../types/interfaces';
 import useForm from '../utils/hooks/useForm';
 import TasksTable from '../components/tables/TaskTable';
 
-const Tasks = (): JSX.Element => {
+const TasksReactQuery = (): JSX.Element => {
     // State 
     const [open, setOpen] = useState(false);
     const [selectedTaskIds, setSelectedTaskIds] = useState<string[] | undefined>([]);
@@ -170,4 +170,4 @@ const Tasks = (): JSX.Element => {
     )
 }
 
-export default Tasks;
+export default TasksReactQuery;

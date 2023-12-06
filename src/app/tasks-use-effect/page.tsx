@@ -5,7 +5,7 @@ import axios, { AxiosError } from 'axios';
 import { ITask } from '../types/interfaces';
 import TasksTable from '../components/tables/TaskTable';
 
-const TasksAxios = (): JSX.Element => {
+const Tasks_useEffect_For_Comparison_Only = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState(true);
   const [tasks, setTasks] = useState<ITask[]>();
   const [errorMessage, setErrorMessage] = useState('');
@@ -39,4 +39,4 @@ const TasksAxios = (): JSX.Element => {
   )
 }
 
-export default TasksAxios;
+export default Tasks_useEffect_For_Comparison_Only;

@@ -9,14 +9,14 @@ const Navbar = (): JSX.Element => {
         <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
           Task Manager
         </Typography>
-        <Button color='inherit'>
-          <Link style={{ textDecoration: 'none' }} href='/'>Home</Link>
+        <Button>
+          <Link style={{ color: 'white', textDecoration: 'none' }} href='/'>Home</Link>
         </Button>
-        <Button color='inherit'>
-          <Link style={{ textDecoration: 'none' }}  href='/tasks-axios'>Tasks_Axios</Link>
+        <Button>
+          <Link style={{ color: 'white', textDecoration: 'none' }} href='/tasks-react-query'>Tasks_React_Query</Link>
         </Button>
-        <Button color='inherit'>
-          <Link style={{ textDecoration: 'none' }}  href='/tasks'>Tasks_useEffect_For_Comparison_Only</Link>
+        <Button>
+          <Link style={{ color: 'white', textDecoration: 'none' }} href='/tasks-use-effect'>Tasks_useEffect_For_Comparison_Only</Link>
         </Button>
       </Toolbar>
     </AppBar>
