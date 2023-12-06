@@ -29,10 +29,13 @@ Before running the application, ensure you have the following installed:
 
 Follow these steps to set up the project:
 
-1. Clone this repository: `git clone https://github.com/JamesVickers/task-manager-frontend`
-2. Navigate to the project directory: `cd task-manager-frontend`
-3. Install dependencies:
-   - Using npm: `npm install`
+1. Clone this repository: 
+    ```bash 
+    git clone https://github.com/JamesVickers/task-manager-frontend`
+2. Navigate to the project directory, for example: `cd task-manager-frontend`
+3. Install dependencies using the following command:
+    ```bash 
+    npm install
 
 ## Setup
 
@@ -42,7 +45,9 @@ Once the local MongoDB and REST API backend are running, you are ready to connec
 
 ## Running the project locally
 
-For development, open a new terminal window and run the project using the command `npm run dev`.
+For development, open a new terminal window and run the project using the following command:
+    ```bash 
+    npm run dev.
 
 Visit [ttp://localhost:3000/](http://localhost:3000/) to view the application. 
 
