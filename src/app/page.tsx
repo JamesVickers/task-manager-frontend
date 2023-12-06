@@ -5,7 +5,7 @@ const Home = (): JSX.Element => {
   return (
     <main>
       <h1>
-        Task Manager Frontend
+        Welcome to Task Manager
       </h1>
     </main>
   )

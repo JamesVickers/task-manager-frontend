@@ -1,21 +1,25 @@
 import React from 'react';
+import { AppBar, Toolbar, Typography, Button } from '@mui/material';
 import Link from 'next/link';
 
 const Navbar = (): JSX.Element => {
   return (
-    <main>
-      <ul>
-      <li>
-        <Link href='/'>Home</Link>
-      </li>
-      <li>
-        <Link href='/tasks-axios'>Tasks Axios</Link>
-      </li>
-      <li>
-        <Link href='/tasks'>Tasks</Link>
-      </li>
-    </ul>
-    </main>
+    <AppBar position="static">
+      <Toolbar>
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          Task Manager
+        </Typography>
+        <Button color="inherit">
+          <Link style={{ textDecoration: 'none' }} href='/'>Home</Link>
+        </Button>
+        <Button color="inherit">
+          <Link style={{ textDecoration: 'none' }}  href='/tasks-axios'>Tasks_Axios</Link>
+        </Button>
+        <Button color="inherit">
+          <Link style={{ textDecoration: 'none' }}  href='/tasks'>Tasks_useEffect_For_Comparison_Only</Link>
+        </Button>
+      </Toolbar>
+    </AppBar>
   )
 }
 
