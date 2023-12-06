@@ -20,7 +20,7 @@ const RootLayout = ({
         <body className={inter.className}>
           <Navbar />
           {children}
-          <ReactQueryDevtools initialIsOpen={false} />
+          <ReactQueryDevtools initialIsOpen={false} position='bottom-right'/>
         </body>
       </html>
     </QueryClientProvider>

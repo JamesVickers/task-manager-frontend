@@ -20,8 +20,6 @@ const TasksTable = ({
 }): JSX.Element => {
     // State 
     const [open, setOpen] = useState(false);
-    const [rowData, setRowData] = useState([]);
-    const [editedRowData, setEditedRowData] = useState([]);
     const [taskInEdit, setTaskInEdit] = useState<ITask | null>(null);
 
     const { inputs, handleChange, resetForm } = useForm({
@@ -120,7 +118,6 @@ const TasksTable = ({
                         <IconButton onClick={() => handleEdit(tableMeta.rowIndex)}>
                             <EditIcon />
                         </IconButton>
-
                     );
                 }
             }
@@ -181,17 +178,18 @@ const TasksTable = ({
                                 }}
                             />
                             <DialogActions>
-                                <Button onClick={handleClose} variant='contained' color="error">
+                                <Button onClick={handleClose} variant='contained' color='error'>
                                     Cancel
                                 </Button>
-                                <Button type='submit' value='Submit' variant='contained' color="primary">
+                                <Button type='submit' value='Submit' variant='contained' color='primary'>
                                     Save
                                 </Button>
                             </DialogActions>
                         </form>
                     )}
                 </DialogContent>
-            </Dialog></>
+            </Dialog>
+        </>
     )
 }
 

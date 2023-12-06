@@ -3,13 +3,15 @@
 import React, { ChangeEvent, useState } from 'react';
 import { useQuery, useQueryClient, useMutation } from 'react-query';
 import axios, { AxiosError } from 'axios';
-import { TextField, Button } from '@mui/material';
+import { IconButton, Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from '@mui/material';
+import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import { INewTask, ITask } from '../types/interfaces';
 import useForm from '../utils/hooks/useForm';
 import TasksTable from '../components/tables/TaskTable';
 
 const Tasks = (): JSX.Element => {
     // State 
+    const [open, setOpen] = useState(false);
     const [selectedTaskIds, setSelectedTaskIds] = useState<string[] | undefined>([]);
 
     /* Query logic */
@@ -96,48 +98,12 @@ const Tasks = (): JSX.Element => {
         updateTask(editedTask);
     };
 
+    const handleToggleDialog = () => {
+        setOpen(prev => !prev);
+    };
+
     return (
         <main>
-            <form style={{ maxWidth: '50vw', margin: '0 auto' }} onSubmit={(e) => handleSubmit(e, inputs)}>
-                <TextField
-                    id='assignee'
-                    name='assignee'
-                    label='Assignee'
-                    type='string'
-                    value={inputs.assignee}
-                    onChange={(e) => handleInputChange(e)}
-                    fullWidth
-                    margin='normal'
-                />
-                <TextField
-                    id='description'
-                    name='description'
-                    label='Description'
-                    type='string'
-                    value={inputs.description}
-                    onChange={(e) => handleInputChange(e)}
-                    fullWidth
-                    margin='normal'
-                />
-                <TextField
-                    id='priority'
-                    name='priority'
-                    label='Priority'
-                    type='number'
-                    value={inputs.priority}
-                    onChange={(e) => handleInputChange(e)}
-                    fullWidth
-                    margin='normal'
-                />
-                <div style={{ width: 'fit-content', margin: '1rem 0 1rem auto' }}>
-                    <Button style={{ marginRight: '1rem' }} type='button' onClick={resetForm} variant='contained' color="error">
-                        Reset
-                    </Button>
-                    <Button type='submit' value='Submit' variant='contained' color="primary">
-                        Submit
-                    </Button>
-                </div>
-            </form>
             {isError && <h2>{error?.message}</h2>}
             {isLoading && <h2>Loading...</h2>}
             {!isError && !isLoading && (
@@ -152,6 +118,54 @@ const Tasks = (): JSX.Element => {
                     )}
                 </>
             )}
+            <Dialog open={open} onClose={handleToggleDialog}>
+                <DialogTitle>Add New Task</DialogTitle>
+                <DialogContent>
+                    <form onSubmit={(e) => handleSubmit(e, inputs)}>
+                        <TextField
+                            id='assignee'
+                            name='assignee'
+                            label='Assignee'
+                            type='string'
+                            value={inputs.assignee}
+                            onChange={(e) => handleInputChange(e)}
+                            fullWidth
+                            margin='normal'
+                        />
+                        <TextField
+                            id='description'
+                            name='description'
+                            label='Description'
+                            type='string'
+                            value={inputs.description}
+                            onChange={(e) => handleInputChange(e)}
+                            fullWidth
+                            margin='normal'
+                        />
+                        <TextField
+                            id='priority'
+                            name='priority'
+                            label='Priority'
+                            type='number'
+                            value={inputs.priority}
+                            onChange={(e) => handleInputChange(e)}
+                            fullWidth
+                            margin='normal'
+                        />
+                        <DialogActions>
+                            <Button type='button' onClick={resetForm} variant='contained' color='error'>
+                                Reset
+                            </Button>
+                            <Button type='submit' value='Submit' variant='contained' color='primary'>
+                                Submit
+                            </Button>
+                        </DialogActions>
+                    </form>
+                </DialogContent>
+            </Dialog>
+            <Button style={{ margin: '1rem 0'}} size='large' variant='contained' color='secondary' onClick={() => handleToggleDialog()}>
+                Add New Task <ControlPointIcon style={{ marginLeft: '0.5rem' }}/>
+            </Button>
         </main>
     )
 }
