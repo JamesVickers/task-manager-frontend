@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useQuery, useQueryClient, useMutation } from 'react-query';
 import axios, { AxiosError } from 'axios';
-import { INewTask } from '../types/interfaces';
+import { INewTask, ITask } from '../types/interfaces';
 import useForm from '../utils/hooks/useForm';
 import TasksTable from '../components/tables/TaskTable';
 
@@ -73,8 +73,8 @@ const Tasks = (): JSX.Element => {
     };
 
     const handleSelectionChange = (itemIndexes: number[] | undefined) => {
-        const filteredTasks = itemIndexes && data?.data.tasks.filter((task, index) => itemIndexes.includes(index));
-        const mappedTasks = filteredTasks.map(task => (task._id));
+        const filteredTasks = itemIndexes && data?.data.tasks.filter((task: ITask, index: number) => itemIndexes.includes(index));
+        const mappedTasks = filteredTasks.map((task: ITask) => (task._id));
         setSelectedTaskIds(mappedTasks)
     };
 
