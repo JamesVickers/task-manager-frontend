@@ -4,7 +4,7 @@ import React from 'react';
 import { useQuery, useQueryClient, useMutation } from 'react-query';
 import axios, { AxiosError } from 'axios';
 import { v4 as uuidv4 } from 'uuid';
-import { ITask } from '../types/interfaces';
+import { INewTask, ITask } from '../types/interfaces';
 import useForm from '../utils/hooks/useForm';
 import { Priority } from '../types/types';
 
@@ -24,7 +24,7 @@ const Tasks = (): JSX.Element => {
         error: AxiosError | null
     } = useQuery('getAllTasks', getAllTasks);
 
-    const postTask = (newTask: ITask) => axios.post('http://localhost:8888/tasks/create/task', newTask);
+    const postTask = (newTask: INewTask) => axios.post('http://localhost:8888/tasks/create/task', newTask);
 
     const queryClient = useQueryClient();
 
@@ -48,7 +48,7 @@ const Tasks = (): JSX.Element => {
         handleChange(name, parsedValue);
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>, newTask: ITask) => { // Todo: configure this to accept interface ITask
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>, newTask: INewTask) => {
         e.preventDefault();
         createTask(newTask);
         resetForm();
