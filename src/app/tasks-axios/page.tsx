@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import axios, { AxiosError } from 'axios';
-import { v4 as uuidv4 } from 'uuid';
 import { ITask } from '../types/interfaces';
+import TasksTable from '../components/tables/TaskTable';
 
 const TasksAxios = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState(true);
@@ -29,23 +29,11 @@ const TasksAxios = (): JSX.Element => {
       {errorMessage && <h2>{errorMessage}</h2>}
       {isLoading && <h2>Loading...</h2>}
       {!errorMessage && !isLoading && (
-        <div>
-          {tasks && <h2>Task count: {tasks.length}</h2>}
-          {tasks?.length && tasks.map((task: ITask) => {
-            const { _id: id, assignee, description, priority } = task;
-            const uniqueKey: string = uuidv4();
-            return (
-              <div key={uniqueKey}>
-                <ul>
-                  <li>{id}</li>
-                  <li>{assignee}</li>
-                  <li>{description}</li>
-                  <li>{priority}</li>
-                </ul>
-              </div>
-            )
-          })}
-        </div>
+        <>
+          {tasks && (
+            <TasksTable tasks={tasks} />
+          )}
+        </>
       )}
     </main>
   )
