@@ -9,6 +9,7 @@ The frontend for a task management web application, connected to a [task-manager
 - [Next.js](https://nextjs.org/)
 - [TypeScript](https://www.typescriptlang.org/download)
 - [Axios](https://www.npmjs.com/package/axios)
+- [React Query](https://www.npmjs.com/package/react-query).
 - [mui-datatables](https://www.npmjs.com/package/mui-datatables)
 - [ESLint](https://eslint.org/)
 
