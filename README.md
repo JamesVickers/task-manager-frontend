@@ -4,16 +4,24 @@
 
 The frontend for a task management web application, connected to a [task-manager-backend](https://github.com/JamesVickers/task-manager-backend) REST API.
 
+## Technologies Used
+
+- [Next.js](https://nextjs.org/)
+- [TypeScript](https://www.typescriptlang.org/download)
+- [Axios](https://www.npmjs.com/package/axios)
+- [mui-datatables](https://www.npmjs.com/package/mui-datatables)
+- [ESLint](https://eslint.org/)
+
 ## Highlights
 
-- This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app)
-- All git commits follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) guidelines
-- [TypeScript](https://www.typescriptlang.org/download) has been added
-- [Axios](https://www.npmjs.com/package/axios) is used for data fetching 
-- Task data is displayed using npm package [mui-datatables](https://www.npmjs.com/package/mui-datatables)
-- [ESLint](https://eslint.org/) is configured for linting
 - The project has two pages which both display all tasks; the first page calls the axios get request with a useEffect hook, the second page makes the same get request call using [React Query](https://www.npmjs.com/package/react-query).
-  - This duplication is intentional, to highlight the benefits of using cached data from React Query
+    - This duplication is intentional, to highlight the benefits of using cached data from React Query
+- All git commits follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) guidelines
+- The following actions are available to the user:
+    - Create tasks
+    - View all tasks, with filtering, sorting, searching, etc.
+    - Edit tasks
+    - Delete task(s)
 
 ## Prerequisites
 
