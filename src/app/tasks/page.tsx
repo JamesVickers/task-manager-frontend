@@ -82,6 +82,11 @@ const Tasks = (): JSX.Element => {
         deleteTasks(selectedTaskIds);
     };
 
+    const handleEditSave = (editedTask: ITask) => {
+        console.log('handleEditSave > editedTask: ', editedTask);
+        // updateTask(editedTask);
+    };
+
     return (
         <main>
             <form onSubmit={(e) => handleSubmit(e, inputs)}>
@@ -121,7 +126,7 @@ const Tasks = (): JSX.Element => {
                         onChange={(e) => handleInputChange(e)}
                     />
                 </label>
-                <input type='submit' value='Submit' />
+                <button type='submit' value='Submit'>Submit</button>
                 <button type='button' onClick={resetForm}>Reset</button>
             </form>
             {isError && <h2>{error?.message}</h2>}
@@ -129,7 +134,12 @@ const Tasks = (): JSX.Element => {
             {!isError && !isLoading && (
                 <>
                     {data?.data.tasks && (
-                        <TasksTable tasks={data?.data.tasks} handleSelectionChange={handleSelectionChange} handleDelete={handleDelete} />
+                        <TasksTable 
+                            tasks={data?.data.tasks} 
+                            handleSelectionChange={handleSelectionChange} 
+                            handleDelete={handleDelete} 
+                            handleEditSave={handleEditSave}
+                            />
                     )}
                 </>
             )}
