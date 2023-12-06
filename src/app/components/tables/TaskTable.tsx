@@ -1,10 +1,19 @@
 'use client'
 
-import React from 'react';
+import React, { useState } from 'react';
 import MUIDataTable from 'mui-datatables';
 import { ITask } from '@/app/types/interfaces';
 
-const TasksTable: React.FC<{ tasks: ITask[] }> = ({ tasks }): JSX.Element => {
+const TasksTable = ({ 
+    tasks,
+    handleSelectionChange,
+    handleDelete
+  }: { 
+    tasks: ITask[];
+    handleSelectionChange: ([]: number[] | undefined) => void;
+    handleDelete: () => void;
+  }): JSX.Element => {
+
     const columns = [
         {
             name: '_id',
@@ -63,6 +72,10 @@ const TasksTable: React.FC<{ tasks: ITask[] }> = ({ tasks }): JSX.Element => {
             columns={columns}
             options={{
                 filterType: 'checkbox',
+                onRowSelectionChange: (_rowsSelectedData, _allRows, rowsSelected) => {
+                    handleSelectionChange(rowsSelected);
+                },
+                onRowsDelete: () => {handleDelete()},
             }}
         />
     )

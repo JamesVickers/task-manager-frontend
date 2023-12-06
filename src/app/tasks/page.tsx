@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery, useQueryClient, useMutation } from 'react-query';
 import axios, { AxiosError } from 'axios';
 import { INewTask } from '../types/interfaces';
@@ -8,7 +8,14 @@ import useForm from '../utils/hooks/useForm';
 import TasksTable from '../components/tables/TaskTable';
 
 const Tasks = (): JSX.Element => {
-    // Query logic
+    // State 
+    const [selectedTaskIds, setSelectedTaskIds] = useState<string[] | undefined>([]);
+
+    /* Query logic */
+
+    const queryClient = useQueryClient();
+
+    // Query all tasks
     const getAllTasks = () => axios.get('http://localhost:8888/tasks/get/all');
 
     const {
@@ -23,13 +30,25 @@ const Tasks = (): JSX.Element => {
         error: AxiosError | null
     } = useQuery('getAllTasks', getAllTasks);
 
-    const postTask = (newTask: INewTask) => axios.post('http://localhost:8888/tasks/create/task', newTask);
+    // Create a task
+    const createTaskAxios = (newTask: INewTask) => axios.post('http://localhost:8888/tasks/create/task', newTask);
 
-    const queryClient = useQueryClient();
-
-    const { mutate: createTask } = useMutation(postTask, {
+    const { mutate: createTask } = useMutation(createTaskAxios, {
         onSuccess: () => {
             queryClient.invalidateQueries('getAllTasks'); // Refetch getAllTasks on createTask success to refresh tasks list automatically
+        }
+    });
+
+    // Delete tasks
+    const deleteTasksAxios = (taskIds: string[] | undefined) => {
+        return axios.delete('http://localhost:8888/tasks/delete/tasks', {
+            data: { ids: taskIds }
+        });
+    };
+
+    const { mutate: deleteTasks } = useMutation(deleteTasksAxios, {
+        onSuccess: () => {
+            queryClient.invalidateQueries('getAllTasks'); // Refetch getAllTasks on deleteTasks success to refresh tasks list automatically
         }
     });
 
@@ -51,6 +70,16 @@ const Tasks = (): JSX.Element => {
         e.preventDefault();
         createTask(newTask);
         resetForm();
+    };
+
+    const handleSelectionChange = (itemIndexes: number[] | undefined) => {
+        const filteredTasks = itemIndexes && data?.data.tasks.filter((task, index) => itemIndexes.includes(index));
+        const mappedTasks = filteredTasks.map(task => (task._id));
+        setSelectedTaskIds(mappedTasks)
+    };
+
+    const handleDelete = () => {
+        deleteTasks(selectedTaskIds);
     };
 
     return (
@@ -100,7 +129,7 @@ const Tasks = (): JSX.Element => {
             {!isError && !isLoading && (
                 <>
                     {data?.data.tasks && (
-                        <TasksTable tasks={data?.data.tasks} />
+                        <TasksTable tasks={data?.data.tasks} handleSelectionChange={handleSelectionChange} handleDelete={handleDelete} />
                     )}
                 </>
             )}
