@@ -30,7 +30,7 @@ const Tasks = (): JSX.Element => {
         error: AxiosError | null
     } = useQuery('getAllTasks', getAllTasks);
 
-    // Create a task
+    // Create task
     const createTaskAxios = (newTask: INewTask) => axios.post('http://localhost:8888/tasks/create/task', newTask);
 
     const { mutate: createTask } = useMutation(createTaskAxios, {
@@ -49,6 +49,15 @@ const Tasks = (): JSX.Element => {
     const { mutate: deleteTasks } = useMutation(deleteTasksAxios, {
         onSuccess: () => {
             queryClient.invalidateQueries('getAllTasks'); // Refetch getAllTasks on deleteTasks success to refresh tasks list automatically
+        }
+    });
+
+    // Update task
+    const updateTaskAxios = (editedTask: ITask) => axios.put('http://localhost:8888/tasks/update/task', editedTask);
+
+    const { mutate: updateTask } = useMutation(updateTaskAxios, {
+        onSuccess: () => {
+            queryClient.invalidateQueries('getAllTasks'); // Refetch getAllTasks on createTask success to refresh tasks list automatically
         }
     });
 
@@ -83,8 +92,7 @@ const Tasks = (): JSX.Element => {
     };
 
     const handleEditSave = (editedTask: ITask) => {
-        console.log('handleEditSave > editedTask: ', editedTask);
-        // updateTask(editedTask);
+        updateTask(editedTask);
     };
 
     return (
@@ -134,12 +142,12 @@ const Tasks = (): JSX.Element => {
             {!isError && !isLoading && (
                 <>
                     {data?.data.tasks && (
-                        <TasksTable 
-                            tasks={data?.data.tasks} 
-                            handleSelectionChange={handleSelectionChange} 
-                            handleDelete={handleDelete} 
+                        <TasksTable
+                            tasks={data?.data.tasks}
+                            handleSelectionChange={handleSelectionChange}
+                            handleDelete={handleDelete}
                             handleEditSave={handleEditSave}
-                            />
+                        />
                     )}
                 </>
             )}

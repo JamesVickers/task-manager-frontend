@@ -45,11 +45,8 @@ const TasksTable = ({
 
     const handleEdit = (itemIndex: number) => {
         const task = tasks[itemIndex];
-        console.log('handleEdit > task: ', task)
         setTaskInEdit(task)
         setOpen(true);
-
-        // editTasks(selectedTaskIds);
     };
 
     const handleClose = () => {
@@ -59,7 +56,6 @@ const TasksTable = ({
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>, taskInEdit: ITask) => {
         e.preventDefault();
-        console.log("TaskTable > handleSubmit > taskInEdit", taskInEdit);
         handleEditSave(taskInEdit);
         handleClose()
     };
