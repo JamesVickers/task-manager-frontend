@@ -3,11 +3,12 @@
 import React, { ChangeEvent, useState } from 'react';
 import { useQuery, useQueryClient, useMutation } from 'react-query';
 import axios, { AxiosError } from 'axios';
-import { IconButton, Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from '@mui/material';
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import { INewTask, ITask } from '../types/interfaces';
 import useForm from '../utils/hooks/useForm';
 import TasksTable from '../components/tables/TaskTable';
+import TaskInputFields from '../components/inputs/TaskInputFields';
 
 const TasksReactQuery = (): JSX.Element => {
     // State 
@@ -15,10 +16,11 @@ const TasksReactQuery = (): JSX.Element => {
     const [selectedTaskIds, setSelectedTaskIds] = useState<string[] | undefined>([]);
 
     /* Query logic */
-
     const queryClient = useQueryClient();
 
     // Query all tasks
+    // TODO: extract React Query logic and api calls out of this file to a separate file
+
     const getAllTasks = () => axios.get('http://localhost:8888/tasks/get/all');
 
     const {
@@ -122,36 +124,7 @@ const TasksReactQuery = (): JSX.Element => {
                 <DialogTitle>Add New Task</DialogTitle>
                 <DialogContent>
                     <form onSubmit={(e) => handleSubmit(e, inputs)}>
-                        <TextField
-                            id='assignee'
-                            name='assignee'
-                            label='Assignee'
-                            type='string'
-                            value={inputs.assignee}
-                            onChange={(e) => handleInputChange(e)}
-                            fullWidth
-                            margin='normal'
-                        />
-                        <TextField
-                            id='description'
-                            name='description'
-                            label='Description'
-                            type='string'
-                            value={inputs.description}
-                            onChange={(e) => handleInputChange(e)}
-                            fullWidth
-                            margin='normal'
-                        />
-                        <TextField
-                            id='priority'
-                            name='priority'
-                            label='Priority'
-                            type='number'
-                            value={inputs.priority}
-                            onChange={(e) => handleInputChange(e)}
-                            fullWidth
-                            margin='normal'
-                        />
+                        <TaskInputFields inputs={inputs} handleInputChange={handleInputChange} />
                         <DialogActions>
                             <Button type='button' onClick={resetForm} variant='contained' color='error'>
                                 Reset

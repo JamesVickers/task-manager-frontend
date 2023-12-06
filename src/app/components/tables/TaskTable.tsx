@@ -2,10 +2,11 @@
 
 import React, { ChangeEvent, useState } from 'react';
 import MUIDataTable, { MUIDataTableMeta } from 'mui-datatables';
-import { IconButton, Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from '@mui/material';
+import { IconButton, Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { ITask } from '@/app/types/interfaces';
 import useForm from '../../utils/hooks/useForm';
+import TaskInputFields from '../inputs/TaskInputFields';
 
 const TasksTable = ({
     tasks,
@@ -143,40 +144,7 @@ const TasksTable = ({
                 <DialogContent>
                     {taskInEdit && (
                         <form onSubmit={(e) => handleSubmit(e, taskInEdit)}>
-                            <TextField
-                                id='assignee'
-                                name='assignee'
-                                label='Assignee'
-                                type='string'
-                                value={inputs.assignee}
-                                onChange={(e) => handleInputChange(e)}
-                                fullWidth
-                                margin='normal'
-                            />
-                            <TextField
-                                id='description'
-                                name='description'
-                                label='Description'
-                                type='string'
-                                value={inputs.description}
-                                onChange={(e) => handleInputChange(e)}
-                                fullWidth
-                                margin='normal'
-                            />
-                            <TextField
-                                id='priority'
-                                name='priority'
-                                label='Priority'
-                                type='number'
-                                value={inputs.priority}
-                                onChange={(e) => handleInputChange(e)}
-                                fullWidth
-                                margin='normal'
-                                inputProps={{
-                                    min: 1,
-                                    max: 3,
-                                }}
-                            />
+                            <TaskInputFields inputs={inputs} handleInputChange={handleInputChange} />
                             <DialogActions>
                                 <Button onClick={handleClose} variant='contained' color='error'>
                                     Cancel
