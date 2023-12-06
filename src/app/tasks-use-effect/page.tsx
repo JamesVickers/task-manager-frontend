@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import axios, { AxiosError } from 'axios';
 import { ITask } from '../types/interfaces';
+import { baseUrl } from '@/constants';
 import TasksTable from '../components/tables/TaskTable';
 
 const Tasks_useEffect_For_Comparison_Only = (): JSX.Element => {
@@ -11,7 +12,7 @@ const Tasks_useEffect_For_Comparison_Only = (): JSX.Element => {
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:8888/tasks/get/all')
+    axios.get(`${baseUrl}/tasks/get/all`)
       .then((res) => {
         const { tasks: axiosTasks } = res.data
         setTasks(axiosTasks);
@@ -31,6 +32,8 @@ const Tasks_useEffect_For_Comparison_Only = (): JSX.Element => {
       {!errorMessage && !isLoading && (
         <>
           {tasks && (
+            // Ignoring TS props suggestion here because this file is for demo purposes ONLY
+            // @ts-ignore: Unreachable code error
             <TasksTable tasks={tasks} />
           )}
         </>

@@ -6,6 +6,7 @@ import axios, { AxiosError } from 'axios';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import { INewTask, ITask } from '../types/interfaces';
+import { baseUrl } from '@/constants';
 import useForm from '../utils/hooks/useForm';
 import TasksTable from '../components/tables/TaskTable';
 import TaskInputFields from '../components/inputs/TaskInputFields';
@@ -21,7 +22,7 @@ const TasksReactQuery = (): JSX.Element => {
     // Query all tasks
     // TODO: extract React Query logic and api calls out of this file to a separate file
 
-    const getAllTasks = () => axios.get('http://localhost:8888/tasks/get/all');
+    const getAllTasks = () => axios.get(`${baseUrl}/tasks/get/all`);
 
     const {
         isLoading,
@@ -36,7 +37,7 @@ const TasksReactQuery = (): JSX.Element => {
     } = useQuery('getAllTasks', getAllTasks);
 
     // Create task
-    const createTaskAxios = (newTask: INewTask) => axios.post('http://localhost:8888/tasks/create/task', newTask);
+    const createTaskAxios = (newTask: INewTask) => axios.post(`${baseUrl}/tasks/create/task`, newTask);
 
     const { mutate: createTask } = useMutation(createTaskAxios, {
         onSuccess: () => {
@@ -46,7 +47,7 @@ const TasksReactQuery = (): JSX.Element => {
 
     // Delete tasks
     const deleteTasksAxios = (taskIds: string[] | undefined) => {
-        return axios.delete('http://localhost:8888/tasks/delete/tasks', {
+        return axios.delete(`${baseUrl}/tasks/delete/tasks`, {
             data: { ids: taskIds }
         });
     };
@@ -58,7 +59,7 @@ const TasksReactQuery = (): JSX.Element => {
     });
 
     // Update task
-    const updateTaskAxios = (editedTask: ITask) => axios.put('http://localhost:8888/tasks/update/task', editedTask);
+    const updateTaskAxios = (editedTask: ITask) => axios.put(`${baseUrl}/tasks/update/task`, editedTask);
 
     const { mutate: updateTask } = useMutation(updateTaskAxios, {
         onSuccess: () => {
